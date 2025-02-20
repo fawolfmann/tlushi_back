@@ -1,0 +1,51 @@
+{
+  "employee": {
+    "name": "-------",
+    "employee_id": "-------",
+    "department": "Tech",
+    "department_code": "806",
+    "position_grade": "63",
+    "start_date": "20/08/23"
+  },
+  "company": {
+    "name": "Blueocean Datasnslus Ltd",
+    "address": "Ben Ami Tel Aviv",
+    "registration_number": "564667"
+  },
+  "salary_details": {
+    "base_salary": 3455.00,
+    "overtime": 226.00,
+    "additional_hours_125": 7068.00,
+    "additional_hours_150": 5092.00,
+    "travel_expenses": 1727.27,
+    "travel_reimbursement": 4147.60,
+    "vacation_days": 20.00,
+    "vacation_pay": 176.00,
+    "other_earnings": 1219.40
+  },
+  "deductions": {
+    "income_tax": 44355.04,
+    "national_insurance": 2555.76,
+    "health_insurance": 2037.23,
+    "histadrut_214": 1648.22,
+    "histadrut_662": 1011.78,
+    "histadrut_154": 392.80
+  },
+  "totals": {
+    "gross_salary": 43603.00,
+    "net_salary": 23816.77,
+    "total_payments": 42383.60,
+    "total_deductions": 18566.83
+  },
+  "attendance": {
+    "vacation": {
+      "used": 6.35,
+      "remaining": 0
+    },
+    "sick_leave": {
+      "used": 21.58,
+      "remaining": 0
+    }
+  },
+  "pay_period": "11/2024"
+}
