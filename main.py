@@ -1,4 +1,5 @@
 import json
+import os
 
 import anthropic
 from fastapi import FastAPI, HTTPException
@@ -24,8 +25,10 @@ async def extract_pdf(request: PDFRequest):
             additional_json = json.load(json_file)
 
         prompt += str(additional_json)
+
+        prompt += "\n Return a Json data only"
         print(prompt)
-        client = anthropic.Anthropic(api_key="your_anthropic_api_key")
+        client = anthropic.Anthropic(api_key=os.environ["ANTHROPIC_API_KEY"])
         message = client.messages.create(
             model="claude-3-5-sonnet-20241022",
             max_tokens=1024,
@@ -49,7 +52,8 @@ async def extract_pdf(request: PDFRequest):
                 }
             ],
         )
-        return message
+        print(message)
+        return {"response":message, "id":request.id}
 
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
