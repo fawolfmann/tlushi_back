@@ -52,8 +52,9 @@ async def extract_pdf(request: PDFRequest):
                 }
             ],
         )
-        print(message)
-        return {"response":message, "id":request.id}
+        json_output = json.dumps(json.loads(message.content[0].text))
+        print(json_output)
+        return {"response":json_output, "id":request.id}
 
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
