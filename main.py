@@ -64,7 +64,7 @@ async def extract_pdf(request: PDFRequest):
         data = json.loads(message.content[0].text)
         print(data)
         gross = data["totals"]["gross_salary"]
-        income_tax = gross - data.get("deductions", default_deducts).get("income_tax", 44355.04)
+        income_tax = gross - data.get("deductions", default_deducts).get("income_tax", 2059.89)
         rem1 = gross - income_tax
         bituach_leumi = data.get("deductions", default_deducts).get("national_insurance", 2555.76)
         rem2 = rem1 - bituach_leumi
@@ -75,7 +75,6 @@ async def extract_pdf(request: PDFRequest):
         study_fund = data.get("deductions", default_deducts).get("advanced_study_fund", 1283.55)
         rem5 = rem4 - study_fund
 
-        
         analytics = {
             "waterfall":[
                 { "item": "Total Salary", "over": 0, "deductions": 0, "total": gross},
