@@ -59,7 +59,7 @@ async def extract_pdf(request: PDFRequest):
             "histadrut_214": 1648.22,
             "histadrut_662": 1011.78,
             "histadrut_154": 392.80
-        },
+        }
         print(default_deducts)
         data = json.loads(message.content[0].text)
         print(data)
@@ -77,7 +77,7 @@ async def extract_pdf(request: PDFRequest):
 
         
         analytics = {
-            "waterfall":{
+            "waterfall":[
                 { "item": "Total Salary", "over": 0, "deductions": 0, "total": gross},
                 { "item": "Income Tax", "over": rem1, "deductions": income_tax, "total": 0 },
                 { "item": "Bituach Leumi", "over": rem2, "deductions": bituach_leumi, "total": 0 },
@@ -85,7 +85,7 @@ async def extract_pdf(request: PDFRequest):
                 { "item": "Pension", "over": rem4, "deductions": pension, "total": 0 },
                 { "item": "Study Fund", "over": rem5, "deductions": study_fund, "total": 0 },
                 { "item": "Money in pocket", "over": 0, "deductions": 0, "total": rem5 }
-            },
+            ],
             "base_salary": gross,
             "net_salary": rem5, 
             "vacations_days": data.get("attendance", {"vacation": {"used": 6.35,"remaining": 0},}).get("vacation", {"used": 6.35}).get("used", 6.35)
