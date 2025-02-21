@@ -13,6 +13,10 @@ class PDFRequest(BaseModel):
     pdf_base64: str
 
 @app.get("/healthz")
+async def healthz():
+    return {"message": "Hello, World!"}
+
+@app.get("/")
 async def read_root():
     return {"message": "Hello, World!"}
 
