@@ -52,9 +52,42 @@ async def extract_pdf(request: PDFRequest):
                 }
             ],
         )
-        json_output = json.dumps(json.loads(message.content[0].text))
+        default_deducts = {
+            "income_tax": 44355.04,
+            "national_insurance": 2555.76,
+            "health_insurance": 2037.23,
+            "histadrut_214": 1648.22,
+            "histadrut_662": 1011.78,
+            "histadrut_154": 392.80
+        },
+        data = json.loads(message.content[0].text)
+        gross = data["totals"]["gross_salary"]
+        income_tax = gross - data.get("deductions", default_deducts).get("income_tax", 44355.04)
+        rem1 = gross - income_tax
+        bituach_leumi = data.get("deductions", default_deducts).get("national_insurance", 2555.76)
+        rem2 = rem1 - bituach_leumi
+        health_insurance = data.get("deductions", default_deducts).get("health_insurance", 2037.23)
+        rem3 = rem2 - health_insurance
+        pension = data.get("deductions", default_deducts).get("pension_fund_579",  773.23)
+        rem4 = rem3 - pension
+        study_fund = data.get("deductions", default_deducts).get("advanced_study_fund", 1283.55)
+        rem5 = rem4 - study_fund
+
+
+        analytics = {
+            { "item": "Total Salary", "over": 0, "deductions": 0, "total": gross},
+            { "item": "Income Tax", "over": rem1, "deductions": income_tax, "total": 0 },
+            { "item": "Bituach Leumi", "over": rem2, "deductions": bituach_leumi, "total": 0 },
+            { "item": "Health Insurance", "over": rem3, "deductions": health_insurance, "total": 0 },
+            { "item": "Pension", "over": rem4, "deductions": pension, "total": 0 },
+            { "item": "Study Fund", "over": rem5, "deductions": study_fund, "total": 0 },
+            { "item": "Money in pocket", "over": 0, "deductions": 0, "total": rem5 }
+        }
+        
+        json_output = json.dumps(data)
         print(json_output)
-        return {"response":json_output, "id":request.id}
+        print(analytics)
+        return {"response":json_output, "id":request.id, "analytics":analytics}
 
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
