@@ -75,13 +75,18 @@ async def extract_pdf(request: PDFRequest):
 
 
         analytics = {
-            { "item": "Total Salary", "over": 0, "deductions": 0, "total": gross},
-            { "item": "Income Tax", "over": rem1, "deductions": income_tax, "total": 0 },
-            { "item": "Bituach Leumi", "over": rem2, "deductions": bituach_leumi, "total": 0 },
-            { "item": "Health Insurance", "over": rem3, "deductions": health_insurance, "total": 0 },
-            { "item": "Pension", "over": rem4, "deductions": pension, "total": 0 },
-            { "item": "Study Fund", "over": rem5, "deductions": study_fund, "total": 0 },
-            { "item": "Money in pocket", "over": 0, "deductions": 0, "total": rem5 }
+            "waterfall":{
+                { "item": "Total Salary", "over": 0, "deductions": 0, "total": gross},
+                { "item": "Income Tax", "over": rem1, "deductions": income_tax, "total": 0 },
+                { "item": "Bituach Leumi", "over": rem2, "deductions": bituach_leumi, "total": 0 },
+                { "item": "Health Insurance", "over": rem3, "deductions": health_insurance, "total": 0 },
+                { "item": "Pension", "over": rem4, "deductions": pension, "total": 0 },
+                { "item": "Study Fund", "over": rem5, "deductions": study_fund, "total": 0 },
+                { "item": "Money in pocket", "over": 0, "deductions": 0, "total": rem5 }
+            },
+            "base_salary": gross,
+            "net_salary": rem5, 
+            "vacations_days": data.get("attendance", {"vacation": {"used": 6.35,"remaining": 0},}).get("vacation", {"used": 6.35}).get("used", 6.35)
         }
         
         json_output = json.dumps(data)
