@@ -60,7 +60,9 @@ async def extract_pdf(request: PDFRequest):
             "histadrut_662": 1011.78,
             "histadrut_154": 392.80
         },
+        print(default_deducts)
         data = json.loads(message.content[0].text)
+        print(data)
         gross = data["totals"]["gross_salary"]
         income_tax = gross - data.get("deductions", default_deducts).get("income_tax", 44355.04)
         rem1 = gross - income_tax
@@ -73,7 +75,7 @@ async def extract_pdf(request: PDFRequest):
         study_fund = data.get("deductions", default_deducts).get("advanced_study_fund", 1283.55)
         rem5 = rem4 - study_fund
 
-
+        
         analytics = {
             "waterfall":{
                 { "item": "Total Salary", "over": 0, "deductions": 0, "total": gross},
